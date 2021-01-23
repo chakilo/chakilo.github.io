@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://jiruffe.com/about/index.html</loc>
+    
+    <lastmod>2021-01-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/index.html</loc>
+    
+    <lastmod>2021-01-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/categories/index.html</loc>
+    
+    <lastmod>2021-01-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/404.html</loc>
+    
+    <lastmod>2021-01-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/posts/2040571468/</loc>
+    
+    <lastmod>2019-04-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/posts/1622906637/</loc>
+    
+    <lastmod>2019-04-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/posts/4202244361/</loc>
+    
+    <lastmod>2019-04-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/posts/1337781487/</loc>
+    
+    <lastmod>2019-03-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/posts/1233496010/</loc>
+    
+    <lastmod>2019-03-07</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>https://jiruffe.com/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>https://jiruffe.com/tags/blog/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/hexo/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/github/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/stm32/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/mpu6050/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/rk3399/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/alc5640/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/android/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/reinventing-the-wheel/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/java/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/tags/json/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>https://jiruffe.com/categories/web/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/categories/embed/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiruffe.com/categories/algorithm/</loc>
+    <lastmod>2021-01-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
