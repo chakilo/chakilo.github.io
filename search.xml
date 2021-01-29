@@ -91,6 +91,33 @@
       </tags>
   </entry>
   <entry>
+    <title>MPU-6050 运动检测中断不触发</title>
+    <url>/posts/1337781487/</url>
+    <content><![CDATA[<div class="note default"><p>在使用STM32 + MPU-6050的时候，期望STM32进入停止模式后靠MPU-6050的运动检测来触发STM32的外部中断唤醒。却发现INT脚一直为高，不拉低。</p>
+</div>
+
+<a id="more"></a>
+
+<p>根据MPU-6050的datasheet</p>
+<img data-src="/posts/1337781487/mpu6050_register_56_4_0.png" class="" title="mpu6050_register_56_4_0">
+
+<p>在初始化时配置了中断</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">MPU_Write_Byte(MPU_INTBP_CFG_REG,<span class="number">0XA0</span>);    <span class="comment">//INT引脚低电平有效</span></span><br><span class="line">MPU_Write_Byte(MPU_MDETECT_CTRL_REG,<span class="number">0X1F</span>); <span class="comment">//运动检测延时200ms</span></span><br><span class="line">MPU_Write_Byte(MPU_MOTION_DET_REG,<span class="number">0X01</span>);   <span class="comment">//运动检测中断阈值</span></span><br><span class="line">MPU_Write_Byte(MPU_INT_EN_REG,<span class="number">0X40</span>);       <span class="comment">//开启运动检测中断</span></span><br></pre></td></tr></table></figure>
+<p>结果INT脚却始终为高，怎么晃动都不拉低。</p>
+<p>原来是看的datasheet版本太老了，新版本已经没有这个运动检测中断了。</p>
+<img data-src="/posts/1337781487/mpu6050_register_56_4_2.png" class="" title="mpu6050_register_56_4_2">
+
+<p>于是只好在停止模式下用RTC闹钟定时检查加速度的变化。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ENTERSTOPMODE:</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 开启RTC闹钟 用以喂狗</span></span><br><span class="line">    IWDG_Feed();</span><br><span class="line">    dev_rtc_setAlarm(<span class="number">3</span>);</span><br><span class="line">    IWDG_Feed();</span><br><span class="line">    </span><br><span class="line">    DEBUG_MSG(<span class="string">&quot;standby mode entered\r\n&quot;</span>);</span><br><span class="line">    IWDG_Feed();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 进入停止模式</span></span><br><span class="line">    PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFI);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//DEBUG_MSG(&quot;standby mode exited\r\n&quot;);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 是RTC闹钟唤醒的</span></span><br><span class="line">    <span class="keyword">if</span> (dev_rtc_isAlarm()) &#123;</span><br><span class="line">        <span class="comment">//DEBUG_MSG(&quot;it&#x27;s the RTC alarm, just feed watch dog\r\n&quot;);</span></span><br><span class="line">        <span class="comment">// 喂狗</span></span><br><span class="line">        IWDG_Feed();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查新的加速度</span></span><br><span class="line">        MPU_Get_Accelerometer(&amp;t_aacx,&amp;t_aacy,&amp;t_aacz);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(t_aacx-aacx)&gt;THRESHOLD_ACCELEROMETER_CHANGE || <span class="built_in">abs</span>(t_aacy-aacy)&gt;THRESHOLD_ACCELEROMETER_CHANGE || <span class="built_in">abs</span>(t_aacz-aacz)&gt;THRESHOLD_ACCELEROMETER_CHANGE) &#123;</span><br><span class="line">            <span class="comment">// 利用看门狗重启</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="number">1</span>) &#123;;&#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 喂完狗继续进入停止模式</span></span><br><span class="line">        <span class="keyword">goto</span> ENTERSTOPMODE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>embed</category>
+      </categories>
+      <tags>
+        <tag>stm32</tag>
+        <tag>mpu6050</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RK3399 + ALC5640 声音忽大忽小</title>
     <url>/posts/4202244361/</url>
     <content><![CDATA[<div class="note default"><p>在RK3399上使用Android 7.1，扬声器发出的声音总是忽大忽小，就像是应用程序接到了失去焦点事件<code>AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK</code>然后主动降低音量一样。</p>
@@ -155,33 +182,6 @@
         <tag>reinventing-the-wheel</tag>
         <tag>java</tag>
         <tag>json</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MPU-6050 运动检测中断不触发</title>
-    <url>/posts/1337781487/</url>
-    <content><![CDATA[<div class="note default"><p>在使用STM32 + MPU-6050的时候，期望STM32进入停止模式后靠MPU-6050的运动检测来触发STM32的外部中断唤醒。却发现INT脚一直为高，不拉低。</p>
-</div>
-
-<a id="more"></a>
-
-<p>根据MPU-6050的datasheet</p>
-<img data-src="/posts/1337781487/mpu6050_register_56_4_0.png" class="" title="mpu6050_register_56_4_0">
-
-<p>在初始化时配置了中断</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">MPU_Write_Byte(MPU_INTBP_CFG_REG,<span class="number">0XA0</span>);    <span class="comment">//INT引脚低电平有效</span></span><br><span class="line">MPU_Write_Byte(MPU_MDETECT_CTRL_REG,<span class="number">0X1F</span>); <span class="comment">//运动检测延时200ms</span></span><br><span class="line">MPU_Write_Byte(MPU_MOTION_DET_REG,<span class="number">0X01</span>);   <span class="comment">//运动检测中断阈值</span></span><br><span class="line">MPU_Write_Byte(MPU_INT_EN_REG,<span class="number">0X40</span>);       <span class="comment">//开启运动检测中断</span></span><br></pre></td></tr></table></figure>
-<p>结果INT脚却始终为高，怎么晃动都不拉低。</p>
-<p>原来是看的datasheet版本太老了，新版本已经没有这个运动检测中断了。</p>
-<img data-src="/posts/1337781487/mpu6050_register_56_4_2.png" class="" title="mpu6050_register_56_4_2">
-
-<p>于是只好在停止模式下用RTC闹钟定时检查加速度的变化。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ENTERSTOPMODE:</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 开启RTC闹钟 用以喂狗</span></span><br><span class="line">    IWDG_Feed();</span><br><span class="line">    dev_rtc_setAlarm(<span class="number">3</span>);</span><br><span class="line">    IWDG_Feed();</span><br><span class="line">    </span><br><span class="line">    DEBUG_MSG(<span class="string">&quot;standby mode entered\r\n&quot;</span>);</span><br><span class="line">    IWDG_Feed();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 进入停止模式</span></span><br><span class="line">    PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFI);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//DEBUG_MSG(&quot;standby mode exited\r\n&quot;);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 是RTC闹钟唤醒的</span></span><br><span class="line">    <span class="keyword">if</span> (dev_rtc_isAlarm()) &#123;</span><br><span class="line">        <span class="comment">//DEBUG_MSG(&quot;it&#x27;s the RTC alarm, just feed watch dog\r\n&quot;);</span></span><br><span class="line">        <span class="comment">// 喂狗</span></span><br><span class="line">        IWDG_Feed();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查新的加速度</span></span><br><span class="line">        MPU_Get_Accelerometer(&amp;t_aacx,&amp;t_aacy,&amp;t_aacz);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(t_aacx-aacx)&gt;THRESHOLD_ACCELEROMETER_CHANGE || <span class="built_in">abs</span>(t_aacy-aacy)&gt;THRESHOLD_ACCELEROMETER_CHANGE || <span class="built_in">abs</span>(t_aacz-aacz)&gt;THRESHOLD_ACCELEROMETER_CHANGE) &#123;</span><br><span class="line">            <span class="comment">// 利用看门狗重启</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="number">1</span>) &#123;;&#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 喂完狗继续进入停止模式</span></span><br><span class="line">        <span class="keyword">goto</span> ENTERSTOPMODE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>embed</category>
-      </categories>
-      <tags>
-        <tag>stm32</tag>
-        <tag>mpu6050</tag>
       </tags>
   </entry>
 </search>
