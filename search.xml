@@ -91,6 +91,26 @@
       </tags>
   </entry>
   <entry>
+    <title>RK3399 + ALC5640 声音忽大忽小</title>
+    <url>/posts/4202244361/</url>
+    <content><![CDATA[<div class="note default"><p>在RK3399上使用Android 7.1，扬声器发出的声音总是忽大忽小，就像是应用程序接到了失去焦点事件<code>AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK</code>然后主动降低音量一样。</p>
+</div>
+
+<a id="more"></a>
+
+<p>其实只要更新这部分代码然后重新打包framework即可</p>
+<img data-src="/posts/4202244361/rk_commit_c8c922e8.png" class="" title="rk_commit_c8c922e8">
+]]></content>
+      <categories>
+        <category>embed</category>
+      </categories>
+      <tags>
+        <tag>rk3399</tag>
+        <tag>alc5640</tag>
+        <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MPU-6050 运动检测中断不触发</title>
     <url>/posts/1337781487/</url>
     <content><![CDATA[<div class="note default"><p>在使用STM32 + MPU-6050的时候，期望STM32进入停止模式后靠MPU-6050的运动检测来触发STM32的外部中断唤醒。却发现INT脚一直为高，不拉低。</p>
@@ -115,26 +135,6 @@
       <tags>
         <tag>stm32</tag>
         <tag>mpu6050</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RK3399 + ALC5640 声音忽大忽小</title>
-    <url>/posts/4202244361/</url>
-    <content><![CDATA[<div class="note default"><p>在RK3399上使用Android 7.1，扬声器发出的声音总是忽大忽小，就像是应用程序接到了失去焦点事件<code>AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK</code>然后主动降低音量一样。</p>
-</div>
-
-<a id="more"></a>
-
-<p>其实只要更新这部分代码然后重新打包framework即可</p>
-<img data-src="/posts/4202244361/rk_commit_c8c922e8.png" class="" title="rk_commit_c8c922e8">
-]]></content>
-      <categories>
-        <category>embed</category>
-      </categories>
-      <tags>
-        <tag>rk3399</tag>
-        <tag>alc5640</tag>
-        <tag>android</tag>
       </tags>
   </entry>
   <entry>
